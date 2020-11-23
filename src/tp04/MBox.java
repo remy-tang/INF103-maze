@@ -1,8 +1,14 @@
 package tp04;
 
-public abstract class Mbox {
-	private int xPos ;
-	private int yPos ;
+public abstract class MBox {
+	
+	private final int xPos ;
+	private final int yPos ;
+	
+	public MBox(int xPos, int yPos) {
+		this.xPos = xPos ;
+		this.yPos = yPos ;
+	}
 	
 	public int getXPos() {
 		return xPos ;
