@@ -17,4 +17,5 @@ public abstract class MBox {
 	public int getYPos() {
 		return yPos ;
 	}
+
 }
