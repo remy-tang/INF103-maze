@@ -4,11 +4,12 @@ public abstract class MBox implements VertexInterface{
 	
 	private final int xPos ;
 	private final int yPos ;
-	private String label ;
+	private final String label ; 
 	
-	public MBox(int xPos, int yPos) {
+	protected MBox(int xPos, int yPos, String label) {
 		this.xPos = xPos ;
 		this.yPos = yPos ;
+		this.label = label ;
 	}
 	
 	public int getXPos() {

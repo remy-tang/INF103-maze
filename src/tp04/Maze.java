@@ -3,28 +3,36 @@ import java.util.ArrayList;
 
 public class Maze implements GraphInterface {
 	
-	private MBox Boxes[][];
-	int xMax;				/* Indice maximum selon les x*/
-	int yMax;				/* Indice maximum selon les y*/
+	private MBox[][] Boxes ;
+	private final int xMax;				/* Indice maximum selon les x */
+	private final int yMax;				/* Indice maximum selon les y */
 	
-	public void addBox(MBox box) {
-
-		int x = box.getXPos();
-		int y = box.getYPos();
-		
-		this.Boxes[x][y] = box;
+	public Maze(int xMax, int yMax) {
+		this.xMax = xMax ;
+		this.yMax = yMax ;
 	}
 	
-	public ArrayList<MBox> isLinkedTo(Vertex box) {
-		
+    public ArrayList<VertexInterface> getAllVertices() {
+    	
+    	ArrayList<VertexInterface> boxesList = new ArrayList<VertexInterface>() ;
+    	
+    	for (int i = 0; i < xMax+1; i++) {
+    		for (int j = 0; j < yMax+1; j++) {
+    			boxesList.add(Boxes[i][j]) ;
+    		}
+    	}
+    	return boxesList ;
+    }
+	
+	public ArrayList<VertexInterface> getSuccessors(VertexInterface vertex) {
+		MBox box = (MBox)vertex ;
 		int x = box.getXPos();
 		int y = box.getYPos();
-		ArrayList<MBox> neighbourList = new ArrayList<MBox>() ; 
-		
-		neighbourList.add(Boxes[x][y+1]); //traiter les box limites autrement
-		neighbourList.add(Boxes[x+1][y]);
-		neighbourList.add(Boxes[x][y-1]);
-		neighbourList.add(Boxes[x-1][y]);
+		ArrayList<VertexInterface> neighbourList = new ArrayList<VertexInterface>() ; 
 		
 		return neighbourList ;	}
+
+    public int getWeight(VertexInterface src,VertexInterface dst) {
+    	return 1;
+    }
 }
