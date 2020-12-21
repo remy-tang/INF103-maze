@@ -1,7 +1,9 @@
 package tp04;
 
-import MBox.java;
-
 public class WBox extends MBox {
+	
+	public WBox(int xPos, int yPos) {
+		super(xPos, yPos, "WBox") ;
+	}
 
 }

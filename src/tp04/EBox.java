@@ -1,7 +1,9 @@
 package tp04;
 
-import MBox.java;
-
-public class EBox extends java {
+public class EBox extends MBox {
+	
+	public EBox(int xPos, int yPos) {
+		super(xPos, yPos, "EBox") ;
+	}
 
 }

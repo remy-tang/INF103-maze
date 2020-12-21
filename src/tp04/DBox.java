@@ -1,7 +1,8 @@
 package tp04;
 
-import MBox.java;
-
-public class DBox extends java {
-
+public class DBox extends MBox {
+	
+	public DBox(int xPos, int yPos) {
+		super(xPos, yPos, "DBox") ;
+	}
 }
