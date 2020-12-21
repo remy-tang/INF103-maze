@@ -8,8 +8,8 @@ public class Maze implements GraphInterface {
 	private final int yMax;				/* Indice maximum selon les y */
 	
 	public Maze(int xMax, int yMax) {
-		this.xMax = xMax ;
-		this.yMax = yMax ;
+		this.xMax = xMax;
+		this.yMax = yMax;
 	}
 	
     public ArrayList<VertexInterface> getAllVertices() {
@@ -18,21 +18,35 @@ public class Maze implements GraphInterface {
     	
     	for (int i = 0; i < xMax+1; i++) {
     		for (int j = 0; j < yMax+1; j++) {
-    			boxesList.add(Boxes[i][j]) ;
+    			boxesList.add(Boxes[i][j]);
     		}
     	}
-    	return boxesList ;
+    	return boxesList;
     }
 	
 	public ArrayList<VertexInterface> getSuccessors(VertexInterface vertex) {
+		
 		MBox box = (MBox)vertex ;
 		int x = box.getXPos();
 		int y = box.getYPos();
 		ArrayList<VertexInterface> neighbourList = new ArrayList<VertexInterface>() ; 
 		
-		return neighbourList ;	}
+		if (x != 0)
+			neighbourList.add(Boxes[x-1][y]);
+		if (x != xMax)
+			neighbourList.add(Boxes[x+1][y]);
+		if (y != 0)
+			neighbourList.add(Boxes[x][y-1]);
+		if (y != yMax)
+			neighbourList.add(Boxes[x][y+1]);
+			
+		return neighbourList;	}
 
     public int getWeight(VertexInterface src,VertexInterface dst) {
     	return 1;
+    }
+    
+    public final void initFromTextFile(String fileName) {
+    	
     }
 }

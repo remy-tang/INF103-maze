@@ -7,17 +7,17 @@ public abstract class MBox implements VertexInterface{
 	private final String label ; 
 	
 	protected MBox(int xPos, int yPos, String label) {
-		this.xPos = xPos ;
-		this.yPos = yPos ;
-		this.label = label ;
+		this.xPos = xPos;
+		this.yPos = yPos;
+		this.label = label;
 	}
 	
 	public int getXPos() {
-		return xPos ;
+		return xPos;
 	}
 	
 	public int getYPos() {
-		return yPos ;
+		return yPos;
 	}
 	
 	public String getLabel() {
