@@ -6,11 +6,12 @@ import java.util.ArrayList;
 
 public class Maze implements GraphInterface {
 	
-	private MBox[][] Boxes;
+	private MBox[][] boxes;
 	private final int xMax;				/* Indice maximum selon les x */
 	private final int yMax;				/* Indice maximum selon les y */
 	
 	public Maze(int xMax, int yMax) {
+		boxes = new MBox[xMax][yMax];
 		this.xMax = xMax;
 		this.yMax = yMax;
 	}
@@ -21,7 +22,7 @@ public class Maze implements GraphInterface {
     	
     	for (int i = 0; i < xMax+1; i++) {
     		for (int j = 0; j < yMax+1; j++) {
-    			boxesList.add(Boxes[i][j]);
+    			boxesList.add(boxes[i][j]);
     		}
     	}
     	return boxesList;
@@ -35,13 +36,13 @@ public class Maze implements GraphInterface {
 		ArrayList<VertexInterface> neighbourList = new ArrayList<VertexInterface>() ; 
 		
 		if (x != 0)
-			neighbourList.add(Boxes[x-1][y]);
+			neighbourList.add(boxes[x-1][y]);
 		if (x != xMax)
-			neighbourList.add(Boxes[x+1][y]);
+			neighbourList.add(boxes[x+1][y]);
 		if (y != 0)
-			neighbourList.add(Boxes[x][y-1]);
+			neighbourList.add(boxes[x][y-1]);
 		if (y != yMax)
-			neighbourList.add(Boxes[x][y+1]);
+			neighbourList.add(boxes[x][y+1]);
 			
 		return neighbourList;	}
 
@@ -50,7 +51,7 @@ public class Maze implements GraphInterface {
     }
     
     public final void initFromTextFile(String fileName) 
-    		throws InvalidCharacterException {
+    		throws MazeReadingException {
     	
     	FileReader fr = null;
     	BufferedReader br = null;
@@ -58,37 +59,39 @@ public class Maze implements GraphInterface {
     		fr = new FileReader("data/" + fileName + ".txt");
     		br = new BufferedReader(fr);
     		
-    		int i = 0; // indice correspondant à xPos
+    		int i = 0; // i correspond à xPos
     		int hasNext = 1;
-    		int lineLen = xMax;
     				
     		while (hasNext == 1) {
-    			
-    			/*
+
     			String currentLine = br.readLine();
-    			System.out.println(currentLine);
-    			if (currentLine == null)
-    				hasNext = 0;
-    				break;
-    			*/
     			
-    			String currentLetter = Character.toString((char)br.read());
+    			if (currentLine == null) {
+    				hasNext = 0;
+    			    break;
+    			    }
+    			
+    			int lineLen = currentLine.length();
+    			if (lineLen != xMax)
+    				throw new MazeReadingException(fileName, 91, "Wrong maze size along x axis: " + lineLen + ", expected " + xMax);
+    			
     			for (int j=0; j<lineLen; j++) { // j correspond à yPos
+    				String currentLetter = Character.toString(currentLine.charAt(j)).toUpperCase();
     				
     				if (currentLetter.equals("-1"))
     					hasNext = 0;
     				else if (currentLetter.equals("\n"))
     					i += 1;
     				else if (currentLetter.equals("E"))
-    					Boxes[i][j] = new EBox(i,j);
+    					boxes[i][j] = new EBox(i,j);
     				else if (currentLetter.equals("W"))
-    					Boxes[i][j] = new WBox(i,j);
+    					boxes[i][j] = new WBox(i,j);
     				else if (currentLetter.equals("D")) // On suppose qu'il n'y a qu'un D et qu'un A dans fileName
-    					Boxes[i][j] = new DBox(i,j);
+    					boxes[i][j] = new DBox(i,j);
     				else if (currentLetter.equals("A"))
-    					Boxes[i][j] = new ABox(i,j);
+    					boxes[i][j] = new ABox(i,j);
     				else
-    					throw new InvalidCharacterException(currentLetter);
+    					throw new MazeReadingException(fileName, 91, "Wrong character: " + currentLetter + ", expected 'E','W','D','A'.");
     			}
     		}
     	} catch (Exception e) {
