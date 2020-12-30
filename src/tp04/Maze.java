@@ -51,20 +51,28 @@ public class Maze implements GraphInterface {
     }
     
     public final void initFromTextFile(String fileName) 
-    	throws InvalidCharacterException {
+    		throws InvalidCharacterException {
+    	
+    	FileReader fr = null;
+    	BufferedReader br = null;
     	try {
-    		FileReader fr = new FileReader(fileName + ".txt");
-    		BufferedReader br = new BufferedReader(fr);
-    		Scanner sc = new Scanner(br);
+    		fr = new FileReader("data/" + fileName + ".txt");
+    		br = new BufferedReader(fr);
     		
-    		int i = 0;
-    		while (sc.hasNextLine()) {
-    			String currentLine = sc.nextLine();
-    			int lineLen = currentLine.length();
+    		int i = 0; // indice correspondant à xPos
+    		int hasNext = 1;
+    		int lineLen = br.readLine().length();
+    				
+    		while (hasNext == 1) {
+    			String currentLetter = Character.toString((char)br.read());
     			
     			for (int j=0; j<lineLen; j++) {
-    				String currentLetter = Character.toString(currentLine.charAt(j)).toUpperCase();
-    				if (currentLetter.equals("E"))
+    				
+    				if (currentLetter.equals("-1"))
+    					hasNext = 0;
+    				else if (currentLetter.equals("\n"))
+    					i += 1;
+    				else if (currentLetter.equals("E"))
     					Boxes[i][j] = new EBox(i,j);
     				else if (currentLetter.equals("W"))
     					Boxes[i][j] = new WBox(i,j);
@@ -80,7 +88,12 @@ public class Maze implements GraphInterface {
     		e.printStackTrace();
     	}
     	finally {
-    		sc.close();
+    		try {
+    			br.close();
+    			fr.close();}
+    		catch (Exception e) {
+    			e.printStackTrace();
+    		}
     	}
     }
 }
