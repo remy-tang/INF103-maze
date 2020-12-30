@@ -50,8 +50,8 @@ public class Maze implements GraphInterface {
     	return 1;
     }
     
-    public final void initFromTextFile(String fileName) {
-    	
+    public final void initFromTextFile(String fileName) 
+    	throws InvalidCharacterException {
     	try {
     		FileReader fr = new FileReader(fileName + ".txt");
     		BufferedReader br = new BufferedReader(fr);
@@ -63,23 +63,24 @@ public class Maze implements GraphInterface {
     			int lineLen = currentLine.length();
     			
     			for (int j=0; j<lineLen; j++) {
-    				String currentLetter = Character.toString(currentLine.charAt(j));
+    				String currentLetter = Character.toString(currentLine.charAt(j)).toUpperCase();
     				if (currentLetter.equals("E"))
-    					Boxes[i][j] = EBox(i,j);
+    					Boxes[i][j] = new EBox(i,j);
     				else if (currentLetter.equals("W"))
-    					Boxes[i][j] = WBox(i,j);
+    					Boxes[i][j] = new WBox(i,j);
     				else if (currentLetter.equals("D")) // On suppose qu'il n'y a qu'un D et qu'un A dans fileName
-    					Boxes[i][j] = DBox(i,j);
+    					Boxes[i][j] = new DBox(i,j);
     				else if (currentLetter.equals("A"))
-    					Boxes[i][j] = ABox(i,j);
+    					Boxes[i][j] = new ABox(i,j);
+    				else
+    					throw new InvalidCharacterException(currentLetter);
     			}
     		}
     	} catch (Exception e) {
     		e.printStackTrace();
-    	} finally {
+    	}
+    	finally {
     		sc.close();
-    		br.close();
-    		fr.close();
     	}
     }
 }
