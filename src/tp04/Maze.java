@@ -64,12 +64,14 @@ public class Maze implements GraphInterface {
     				
     		while (hasNext == 1) {
     			
+    			/*
     			String currentLine = br.readLine();
     			System.out.println(currentLine);
     			if (currentLine == null)
     				hasNext = 0;
+    				break;
+    			*/
     			
-    			/*
     			String currentLetter = Character.toString((char)br.read());
     			for (int j=0; j<lineLen; j++) { // j correspond à yPos
     				
@@ -87,7 +89,7 @@ public class Maze implements GraphInterface {
     					Boxes[i][j] = new ABox(i,j);
     				else
     					throw new InvalidCharacterException(currentLetter);
-    			} */
+    			}
     		}
     	} catch (Exception e) {
     		e.printStackTrace();
