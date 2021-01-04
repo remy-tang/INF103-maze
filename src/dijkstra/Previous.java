@@ -25,7 +25,6 @@ public class Previous implements PreviousInterface {
 		}
 		vertexList.add(currentVertex);
 		return vertexList;
-
 	}
 
 }
