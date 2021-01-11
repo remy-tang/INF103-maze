@@ -5,18 +5,12 @@ import maze.*;
 
 public class Dijkstra {
 	
-	private static PreviousInterface dijkstra(GraphInterface g,VertexInterface r, ASetInterface a, PiInterface pi, PreviousInterface previous) {
-		
-		return previous;
-	}
-	
 	public static PreviousInterface dijkstra(GraphInterface g, VertexInterface r) {
 		
 		ASetInterface A = new ASet();
 		PiInterface Pi = new Pi();
 		PreviousInterface previous = new Previous();
 		ArrayList<VertexInterface> vertexList = g.getAllVertices();
-		
 		int n = vertexList.size();
 		VertexInterface pivot = r;
 		VertexInterface nextPivot = r;

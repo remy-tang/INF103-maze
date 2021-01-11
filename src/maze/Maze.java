@@ -48,6 +48,7 @@ public class Maze implements GraphInterface {
 			
 		return neighbourList;	}
 
+	
     public int getWeight(VertexInterface src,VertexInterface dst) {
     	return 1;
     }
@@ -65,8 +66,8 @@ public class Maze implements GraphInterface {
     		String currentLine = br.readLine();
     				
     		while (currentLine != null && i<=xMax) {
-    			
     			int lineLen = currentLine.length() - 1;
+    			
     			if (lineLen != xMax)
     				throw new MazeReadingException(fileName, 91, "Wrong maze size along x axis: " + lineLen + ", expected " + xMax);
     			
@@ -138,15 +139,16 @@ public class Maze implements GraphInterface {
     }
     
     private void updateBox(Maze maze, int i, int j) {
-    	maze.boxes[i][j].setStatus();
+    	maze.boxes[i][j].updateStatus();
     }
     
-    public String solvedMazeString(Maze maze) {
+    public String solvedMazeString(Maze maze) { //weird thing for arguments here  : maze.func(maze)....
     	
     	Maze solvedMaze = maze;
     	PreviousInterface solution;
     	solution = Dijkstra.dijkstra(maze,DBox);
 		ArrayList<VertexInterface> shortestPath = solution.getShortestPathTo(ABox);
+		String solvedMazeString = "";
 		
 		for (VertexInterface vertex : shortestPath) {
 			if (((MBox)vertex).getLabel().equals("EBox")) {
@@ -155,8 +157,7 @@ public class Maze implements GraphInterface {
 				updateBox(solvedMaze,i,j);
 			}
 		}
-    	
-		String solvedMazeString = "";
+		
 		for (int i=0; i<=xMax; i++) {
 			String newline = "";
 			for (int j=0; j<=yMax; j++) {
