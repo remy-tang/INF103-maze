@@ -12,7 +12,7 @@ public class Maze implements GraphInterface {
 	private final int yMax;				/* Indice maximum selon les y */
 	
 	public Maze(int xMax, int yMax) {
-		boxes = new MBox[xMax][yMax];
+		boxes = new MBox[xMax+1][yMax+1];
 		this.xMax = xMax;
 		this.yMax = yMax;
 	}
@@ -63,13 +63,13 @@ public class Maze implements GraphInterface {
     		int i = 0; // i correspond à xPos
     		String currentLine = br.readLine();
     				
-    		while (currentLine != null && i<=yMax) {
+    		while (currentLine != null && i<=xMax) {
     			
     			int lineLen = currentLine.length() - 1;
     			if (lineLen != xMax)
     				throw new MazeReadingException(fileName, 91, "Wrong maze size along x axis: " + lineLen + ", expected " + xMax);
     			
-    			for (int j=0; j<lineLen; j++) { // j correspond à yPos
+    			for (int j=0; j<=yMax; j++) { // j correspond à yPos
     				String currentLetter = Character.toString(currentLine.charAt(j)).toUpperCase();
     				
     				if (currentLetter.equals("E"))
@@ -84,7 +84,7 @@ public class Maze implements GraphInterface {
     					throw new MazeReadingException(fileName, 91, "Wrong character: " + currentLetter + ", expected 'E','W','D','A'.");
     			}
     			currentLine = br.readLine();
-    			i += 1;
+    			i ++;
     		}
     	} catch (Exception e) {
     		e.printStackTrace();

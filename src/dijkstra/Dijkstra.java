@@ -1,5 +1,7 @@
 package dijkstra;
 import java.util.ArrayList;
+import maze.*;
+
 
 public class Dijkstra {
 	
@@ -29,7 +31,7 @@ public class Dijkstra {
 			ArrayList<VertexInterface> pivotSuccessors = g.getSuccessors(pivot);
 			
 			for (VertexInterface y : pivotSuccessors) {
-				if (!A.isInA(y)) {
+				if (!A.isInA(y) && ((MBox)y).getLabel() == "EBox") {
 					if (Pi.getValue(y) + g.getWeight(pivot, y) < Pi.getValue(y)) {
 						Pi.setValue(y, Pi.getValue(pivot) + g.getWeight(pivot, y));
 						previous.updatePrevious(y, pivot);
@@ -40,7 +42,7 @@ public class Dijkstra {
 			int minPi = Integer.MAX_VALUE;
 			
 			for (VertexInterface vertex : vertexList) {
-				if (!A.isInA(vertex)) {
+				if (!A.isInA(vertex) && ((MBox)vertex).getLabel() == "EBox") {
 					if (Pi.getValue(vertex) < minPi) {
 						minPi = Pi.getValue(vertex);
 						nextPivot = vertex;
