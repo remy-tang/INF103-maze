@@ -31,7 +31,7 @@ public class Dijkstra {
 			ArrayList<VertexInterface> pivotSuccessors = g.getSuccessors(pivot);
 			
 			for (VertexInterface y : pivotSuccessors) {
-				if (!A.isInA(y) && ((MBox)y).getLabel() == "EBox") {
+				if (!A.isInA(y)) {
 					if (Pi.getValue(y) + g.getWeight(pivot, y) < Pi.getValue(y)) {
 						Pi.setValue(y, Pi.getValue(pivot) + g.getWeight(pivot, y));
 						previous.updatePrevious(y, pivot);

@@ -2,14 +2,15 @@ package maze;
 import java.io.*;
 import java.util.ArrayList;
 
-import dijkstra.GraphInterface;
-import dijkstra.VertexInterface;
+import dijkstra.*;
 
 public class Maze implements GraphInterface {
 	
 	private MBox[][] boxes;
 	private final int xMax;				/* Indice maximum selon les x */
 	private final int yMax;				/* Indice maximum selon les y */
+	private MBox DBox;
+	private MBox ABox;
 	
 	public Maze(int xMax, int yMax) {
 		boxes = new MBox[xMax+1][yMax+1];
@@ -60,7 +61,7 @@ public class Maze implements GraphInterface {
     		fr = new FileReader("data/" + fileName + ".txt");
     		br = new BufferedReader(fr);
     		
-    		int i = 0; // i correspond à xPos
+    		int i = 0; // i parcourt les lignes
     		String currentLine = br.readLine();
     				
     		while (currentLine != null && i<=xMax) {
@@ -69,17 +70,21 @@ public class Maze implements GraphInterface {
     			if (lineLen != xMax)
     				throw new MazeReadingException(fileName, 91, "Wrong maze size along x axis: " + lineLen + ", expected " + xMax);
     			
-    			for (int j=0; j<=yMax; j++) { // j correspond à yPos
+    			for (int j=0; j<=yMax; j++) { // j parcourt les colonnes
     				String currentLetter = Character.toString(currentLine.charAt(j)).toUpperCase();
     				
     				if (currentLetter.equals("E"))
     					boxes[i][j] = new EBox(i,j);
     				else if (currentLetter.equals("W"))
     					boxes[i][j] = new WBox(i,j);
-    				else if (currentLetter.equals("D")) // On suppose qu'il n'y a qu'un D et qu'un A dans fileName pour l'instant
+    				else if (currentLetter.equals("D")) { // On suppose qu'il n'y a qu'un D et qu'un A dans fileName pour l'instant
     					boxes[i][j] = new DBox(i,j);
-    				else if (currentLetter.equals("A"))
+    					DBox = boxes[i][j];
+    				}
+    				else if (currentLetter.equals("A")) {
     					boxes[i][j] = new ABox(i,j);
+    					ABox = boxes[i][j];
+    				}
     				else
     					throw new MazeReadingException(fileName, 91, "Wrong character: " + currentLetter + ", expected 'E','W','D','A'.");
     			}
@@ -130,5 +135,47 @@ public class Maze implements GraphInterface {
     		e.printStackTrace();
     		}
     	}
+    }
+    
+    private void updateBox(Maze maze, int i, int j) {
+    	maze.boxes[i][j].setStatus();
+    }
+    
+    public String solvedMazeString(Maze maze) {
+    	
+    	Maze solvedMaze = maze;
+    	PreviousInterface solution;
+    	solution = Dijkstra.dijkstra(maze,DBox);
+		ArrayList<VertexInterface> shortestPath = solution.getShortestPathTo(ABox);
+		
+		for (VertexInterface vertex : shortestPath) {
+			if (((MBox)vertex).getLabel().equals("EBox")) {
+				int i=((MBox)vertex).getXPos();
+				int j=((MBox)vertex).getYPos();
+				updateBox(solvedMaze,i,j);
+			}
+		}
+    	
+		String solvedMazeString = "";
+		for (int i=0; i<=xMax; i++) {
+			String newline = "";
+			for (int j=0; j<=yMax; j++) {
+				if (solvedMaze.boxes[i][j].getLabel().equals("EBox")) {
+					if (solvedMaze.boxes[i][j].getStatus() == 1)
+						newline += "*";
+					else
+						newline += "E";
+				}
+				else if (solvedMaze.boxes[i][j].getLabel().equals("WBox"))
+					newline += "W";
+				else if (solvedMaze.boxes[i][j].getLabel().equals("DBox"))
+					newline += "D";
+				else if (solvedMaze.boxes[i][j].getLabel().equals("ABox"))
+					newline += "A";
+			}
+			solvedMazeString += newline + "\n";
+		}
+		
+    	return solvedMazeString;
     }
 }
