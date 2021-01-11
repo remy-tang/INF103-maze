@@ -68,8 +68,8 @@ public class Maze implements GraphInterface {
     		while (currentLine != null && i<=xMax) {
     			int lineLen = currentLine.length() - 1;
     			
-    			if (lineLen != xMax)
-    				throw new MazeReadingException(fileName, 91, "Wrong maze size along x axis: " + lineLen + ", expected " + xMax);
+    			if (lineLen != xMax) // Labyrinthes supposés carrés
+    				throw new MazeReadingException(fileName, 91, "Wrong maze size along x axis: " + lineLen + ". Expected: " + xMax);
     			
     			for (int j=0; j<=yMax; j++) { // j parcourt les colonnes
     				String currentLetter = Character.toString(currentLine.charAt(j)).toUpperCase();

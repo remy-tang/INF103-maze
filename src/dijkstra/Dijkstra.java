@@ -47,6 +47,7 @@ public class Dijkstra {
 			pivot = nextPivot;
 			A.addVertex(pivot);
 		}
+		
 		return previous;
 	}
 }

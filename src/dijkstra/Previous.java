@@ -11,7 +11,7 @@ public class Previous implements PreviousInterface {
 		previousTable.put(y,pivot);
 	}
 
-	public VertexInterface getValue(VertexInterface vertex) {
+	public VertexInterface getPrevious(VertexInterface vertex) {
 		return previousTable.get(vertex);
 	}
 
@@ -19,11 +19,19 @@ public class Previous implements PreviousInterface {
 		ArrayList<VertexInterface> vertexList = new ArrayList<VertexInterface>();
 		VertexInterface currentVertex = vertex;
 		
-		while (currentVertex.getLabel() != "DBox") {
+		while (currentVertex != null && currentVertex.getLabel() != "DBox") {
 			vertexList.add(currentVertex);
-			currentVertex = getValue(currentVertex);
+			currentVertex = getPrevious(currentVertex);
 		}
-		vertexList.add(currentVertex);
+		
+		if (currentVertex != null) {
+			vertexList.add(currentVertex);
+		} else {
+			System.out.println("No solution found :(");
+			//throw an Exception
+		}
+		
+		
 		return vertexList;
 	}
 
