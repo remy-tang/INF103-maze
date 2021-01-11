@@ -5,7 +5,7 @@ import java.util.ArrayList ;
 public interface GraphInterface {
 	
 	/* Donne l'ArrayList de tous les sommets du labyrinthe */
-	public ArrayList<VertexInterface> getAllVertices(); // 
+	public ArrayList<VertexInterface> getAllVertices();
 	
 	/* Donne l'ArrayList des sommets liés à currentVertex */
     public ArrayList<VertexInterface> getSuccessors(VertexInterface vertex);

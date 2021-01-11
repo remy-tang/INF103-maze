@@ -7,7 +7,7 @@ public class MainTest {
 
 	public static void main(String[] args) {
 		
-		/* Initialisation labyrinthe */
+		/* Initialisation labyrinthe de dimensions connues à l'avance */
 		Maze maze = new Maze(9,9);
 		try {maze.initFromTextFile("labyrinthe");}
 		catch (Exception e) {
@@ -19,7 +19,7 @@ public class MainTest {
 		System.out.print(maze.solvedMazeString(maze));
 
 	}
-	}
+}
 
 /* Sauvegarde labyrinthe (non utilisé) */
 
