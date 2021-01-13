@@ -1,7 +1,6 @@
 package dijkstra;
 import java.util.HashSet;
 
-
 public class ASet implements ASetInterface {
 	
 	private HashSet<VertexInterface> A = new HashSet<VertexInterface>();

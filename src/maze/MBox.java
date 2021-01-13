@@ -7,7 +7,7 @@ public abstract class MBox implements VertexInterface{
 	private final int nPos;
 	private final int pPos;
 	private final String label; 
-	private int status = 0; // 0 if not part of solution, 1 if it is in the shortest path
+	private int status = 0; // 0 par défaut, 1 si fait partie du plus court chemin
 	
 	protected MBox(int nPos, int pPos, String label) {
 		this.nPos = nPos;

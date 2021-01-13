@@ -1,7 +1,6 @@
 package dijkstra;
 import java.util.ArrayList ;
 
-
 public interface GraphInterface {
 	
 	/* Donne l'ArrayList de tous les sommets du labyrinthe */

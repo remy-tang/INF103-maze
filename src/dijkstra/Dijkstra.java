@@ -2,7 +2,6 @@ package dijkstra;
 import java.util.ArrayList;
 import maze.*;
 
-
 public class Dijkstra {
 	
 	public static PreviousInterface dijkstra(GraphInterface g, VertexInterface r) {

@@ -138,11 +138,12 @@ public class Maze implements GraphInterface {
     	}
     }
     
+    /* Permet d'indiquer que la box fait partie du plus court chemin */
     private static void updateBox(Maze maze, int i, int j) {
     	maze.boxes[i][j].updateStatus();
     }
     
-    public static String solvedMazeString(Maze maze) { //weird thing for arguments here  : maze.func(maze)....
+    public static String solvedMazeString(Maze maze) {
     	
     	Maze solvedMaze = maze;
     	PreviousInterface solution;
@@ -154,7 +155,7 @@ public class Maze implements GraphInterface {
 			if (((MBox)vertex).getLabel().equals("EBox")) {
 				int i=((MBox)vertex).getNPos();
 				int j=((MBox)vertex).getPPos();
-				updateBox(solvedMaze,i,j);
+				Maze.updateBox(solvedMaze,i,j);
 			}
 		}
 		

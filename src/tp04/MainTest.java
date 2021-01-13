@@ -1,5 +1,4 @@
 package tp04;
-
 import maze.*;
 
 public class MainTest {
