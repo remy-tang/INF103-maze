@@ -2,13 +2,12 @@ package tp04;
 
 import maze.*;
 
-
 public class MainTest {
 
 	public static void main(String[] args) {
 		
 		/* Initialisation labyrinthe de dimensions connues à l'avance */
-		Maze maze = new Maze(9,9);
+		Maze maze = new Maze(10,9); // le labyrinthe est carré pour le moment...
 		try {maze.initFromTextFile("labyrinthe");}
 		catch (Exception e) {
 			e.printStackTrace();

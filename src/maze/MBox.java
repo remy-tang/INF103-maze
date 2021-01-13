@@ -4,23 +4,23 @@ import dijkstra.VertexInterface;
 
 public abstract class MBox implements VertexInterface{
 	
-	private final int xPos;
-	private final int yPos;
+	private final int nPos;
+	private final int pPos;
 	private final String label; 
 	private int status = 0; // 0 if not part of solution, 1 if it is in the shortest path
 	
-	protected MBox(int xPos, int yPos, String label) {
-		this.xPos = xPos;
-		this.yPos = yPos;
+	protected MBox(int nPos, int pPos, String label) {
+		this.nPos = nPos;
+		this.pPos = pPos;
 		this.label = label;
 	}
 	
-	public int getXPos() {
-		return xPos;
+	public int getNPos() {
+		return nPos;
 	}
 	
-	public int getYPos() {
-		return yPos;
+	public int getPPos() {
+		return pPos;
 	}
 	
 	public String getLabel() {

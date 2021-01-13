@@ -7,23 +7,23 @@ import dijkstra.*;
 public class Maze implements GraphInterface {
 	
 	private MBox[][] boxes;
-	private final int xMax;				/* Indice maximum selon les x */
-	private final int yMax;				/* Indice maximum selon les y */
+	private final int nMax;				/* Indice maximum selon les lignes */
+	private final int pMax;				/* Indice maximum selon les colonnes */
 	private MBox DBox;
 	private MBox ABox;
 	
-	public Maze(int xMax, int yMax) {
-		boxes = new MBox[xMax+1][yMax+1];
-		this.xMax = xMax;
-		this.yMax = yMax;
+	public Maze(int nMax, int pMax) {
+		boxes = new MBox[nMax+1][pMax+1];
+		this.nMax = nMax;
+		this.pMax = pMax;
 	}
 	
     public ArrayList<VertexInterface> getAllVertices() {
     	
     	ArrayList<VertexInterface> boxesList = new ArrayList<VertexInterface>() ;
     	
-    	for (int i = 0; i < xMax+1; i++) {
-    		for (int j = 0; j < yMax+1; j++) {
+    	for (int i = 0; i < nMax+1; i++) {
+    		for (int j = 0; j < pMax+1; j++) {
     			boxesList.add(boxes[i][j]);
     		}
     	}
@@ -33,18 +33,18 @@ public class Maze implements GraphInterface {
 	public ArrayList<VertexInterface> getSuccessors(VertexInterface vertex) {
 		
 		MBox box = (MBox)vertex ;
-		int x = box.getXPos();
-		int y = box.getYPos();
+		int n = box.getNPos();
+		int p = box.getPPos();
 		ArrayList<VertexInterface> neighbourList = new ArrayList<VertexInterface>() ; 
 		
-		if (x != 0)
-			neighbourList.add(boxes[x-1][y]);
-		if (x != xMax)
-			neighbourList.add(boxes[x+1][y]);
-		if (y != 0)
-			neighbourList.add(boxes[x][y-1]);
-		if (y != yMax)
-			neighbourList.add(boxes[x][y+1]);
+		if (n != 0)
+			neighbourList.add(boxes[n-1][p]);
+		if (n != nMax)
+			neighbourList.add(boxes[n+1][p]);
+		if (p != 0)
+			neighbourList.add(boxes[n][p-1]);
+		if (p != pMax)
+			neighbourList.add(boxes[n][p+1]);
 			
 		return neighbourList;	}
 
@@ -62,35 +62,35 @@ public class Maze implements GraphInterface {
     		fr = new FileReader("data/" + fileName + ".txt");
     		br = new BufferedReader(fr);
     		
-    		int i = 0; // i parcourt les lignes
+    		int n = 0; // i parcourt les lignes
     		String currentLine = br.readLine();
     				
-    		while (currentLine != null && i<=xMax) {
-    			int lineLen = currentLine.length() - 1;
+    		while (currentLine != null && n<=nMax) {
+    			int lineLen = currentLine.length() - 1; // Vérification du format des lignes
     			
-    			if (lineLen != xMax) // Labyrinthes supposés carrés
-    				throw new MazeReadingException(fileName, 91, "Wrong maze size along x axis: " + lineLen + ". Expected: " + xMax);
+    			if (lineLen != pMax) 
+    				throw new MazeReadingException(fileName, 91, "Wrong maze size along horizontal axis: " + lineLen + ". Expected: " + nMax);
     			
-    			for (int j=0; j<=yMax; j++) { // j parcourt les colonnes
-    				String currentLetter = Character.toString(currentLine.charAt(j)).toUpperCase();
+    			for (int p=0; p<=pMax; p++) { // j parcourt les colonnes
+    				String currentLetter = Character.toString(currentLine.charAt(p)).toUpperCase();
     				
     				if (currentLetter.equals("E"))
-    					boxes[i][j] = new EBox(i,j);
+    					boxes[n][p] = new EBox(n,p);
     				else if (currentLetter.equals("W"))
-    					boxes[i][j] = new WBox(i,j);
+    					boxes[n][p] = new WBox(n,p);
     				else if (currentLetter.equals("D")) { // On suppose qu'il n'y a qu'un D et qu'un A dans fileName pour l'instant
-    					boxes[i][j] = new DBox(i,j);
-    					DBox = boxes[i][j];
+    					boxes[n][p] = new DBox(n,p);
+    					DBox = boxes[n][p];
     				}
     				else if (currentLetter.equals("A")) {
-    					boxes[i][j] = new ABox(i,j);
-    					ABox = boxes[i][j];
+    					boxes[n][p] = new ABox(n,p);
+    					ABox = boxes[n][p];
     				}
     				else
     					throw new MazeReadingException(fileName, 91, "Wrong character: " + currentLetter + ", expected 'E','W','D','A'.");
     			}
     			currentLine = br.readLine();
-    			i ++;
+    			n++;
     		}
     	} catch (Exception e) {
     		e.printStackTrace();
@@ -152,15 +152,15 @@ public class Maze implements GraphInterface {
 		
 		for (VertexInterface vertex : shortestPath) {
 			if (((MBox)vertex).getLabel().equals("EBox")) {
-				int i=((MBox)vertex).getXPos();
-				int j=((MBox)vertex).getYPos();
+				int i=((MBox)vertex).getNPos();
+				int j=((MBox)vertex).getPPos();
 				updateBox(solvedMaze,i,j);
 			}
 		}
 		
-		for (int i=0; i<=xMax; i++) {
+		for (int i=0; i<=nMax; i++) {
 			String newline = "";
-			for (int j=0; j<=yMax; j++) {
+			for (int j=0; j<=pMax; j++) {
 				if (solvedMaze.boxes[i][j].getLabel().equals("EBox")) {
 					if (solvedMaze.boxes[i][j].getStatus() == 1)
 						newline += "*";
