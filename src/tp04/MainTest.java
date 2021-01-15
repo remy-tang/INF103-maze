@@ -17,7 +17,7 @@ public class MainTest {
 		
 		/* Affichage de la solution dans la console, 
 		   avec des "*" pour indiquer le plus court chemin */
-		System.out.print(Maze.solvedMazeString(solvedMaze));
+		System.out.print(solvedMaze.solvedMazeString());
 
 		/* Sauvegarde labyrinthe (non utilisé) */
 

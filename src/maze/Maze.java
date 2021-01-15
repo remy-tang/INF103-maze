@@ -143,7 +143,7 @@ public class Maze implements GraphInterface {
     	boxes[i][j].updateStatus();
     }
     
-    public Maze solvedMaze(Maze maze) {
+    public static Maze solvedMaze(Maze maze) {
     	
     	Maze solvedMaze = maze;
     	PreviousInterface solution = Dijkstra.dijkstra(maze,maze.DBox);
@@ -159,24 +159,24 @@ public class Maze implements GraphInterface {
     }
 
     /* Création du string du labyrinthe résolu */
-    public static String solvedMazeString(Maze solvedMaze) {
+    public String solvedMazeString() {
 		
 		String solvedMazeString = "";
 		
-		for (int i=0; i<=solvedMaze.nMax; i++) {
+		for (int i=0; i<=nMax; i++) {
 			String newline = "";
-			for (int j=0; j<=solvedMaze.pMax; j++) {
-				if (solvedMaze.boxes[i][j].getLabel().equals("EBox")) {
-					if (solvedMaze.boxes[i][j].getStatus() == 1)
+			for (int j=0; j<=pMax; j++) {
+				if (boxes[i][j].getLabel().equals("EBox")) {
+					if (boxes[i][j].getStatus() == 1)
 						newline += "*";
 					else
 						newline += "E";
 				}
-				else if (solvedMaze.boxes[i][j].getLabel().equals("WBox"))
+				else if (boxes[i][j].getLabel().equals("WBox"))
 					newline += "W";
-				else if (solvedMaze.boxes[i][j].getLabel().equals("DBox"))
+				else if (boxes[i][j].getLabel().equals("DBox"))
 					newline += "D";
-				else if (solvedMaze.boxes[i][j].getLabel().equals("ABox"))
+				else if (boxes[i][j].getLabel().equals("ABox"))
 					newline += "A";
 			}
 			solvedMazeString += newline + "\n";
