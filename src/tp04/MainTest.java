@@ -13,14 +13,14 @@ public class MainTest {
 		}
 		
 		/* Création du labyrinthe résolu */
-		Maze solvedMaze = Maze.solvedMaze(maze);
+		Maze solvedMaze = maze.solvedMaze();
 		
 		/* Affichage de la solution dans la console, 
 		   avec des "*" pour indiquer le plus court chemin */
 		String solvedMazeString = solvedMaze.solvedMazeString();
 		System.out.print(solvedMazeString);
 
-		/* Sauvegarde du labyrinthe résolu */
+		/* Sauvegarde du labyrinthe résolu dans data/solvedLabyrinthe.txt */
 		try {solvedMaze.saveToTextFile("solvedLabyrinthe", solvedMazeString);}
 		catch (Exception e) {
 			e.printStackTrace();

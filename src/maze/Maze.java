@@ -132,11 +132,11 @@ public class Maze implements GraphInterface {
     	boxes[i][j].updateStatus();
     }
     
-    public static Maze solvedMaze(Maze maze) {
+    public Maze solvedMaze() {
     	
-    	Maze solvedMaze = maze;
-    	PreviousInterface solution = Dijkstra.dijkstra(maze,maze.DBox);
-		ArrayList<VertexInterface> shortestPath = solution.getShortestPathTo(maze.ABox);
+    	Maze solvedMaze = this;
+    	PreviousInterface solution = Dijkstra.dijkstra(this,this.DBox);
+		ArrayList<VertexInterface> shortestPath = solution.getShortestPathTo(this.ABox);
 		
 		for (VertexInterface vertex : shortestPath) {
 			int i=((MBox)vertex).getNPos();
