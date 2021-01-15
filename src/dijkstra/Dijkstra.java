@@ -5,10 +5,10 @@ import maze.*;
 public class Dijkstra {
 	
 	public static PreviousInterface dijkstra(GraphInterface g, VertexInterface r) {
-		
 		ASetInterface A = new ASet();
 		PiInterface Pi = new Pi();
 		PreviousInterface previous = new Previous();
+		
 		ArrayList<VertexInterface> vertexList = g.getAllVertices();
 		int verticesCount = vertexList.size();
 		VertexInterface pivot = r;
@@ -20,7 +20,7 @@ public class Dijkstra {
 				Pi.setValue(vertex, Integer.MAX_VALUE);
 		}
 		
-		for (int j=1; j<verticesCount; j++) {
+		for (int j = 1; j < verticesCount; j++) {
 			ArrayList<VertexInterface> pivotSuccessors = g.getSuccessors(pivot);
 			
 			for (VertexInterface y : pivotSuccessors) {
@@ -33,7 +33,6 @@ public class Dijkstra {
 			}
 			
 			int minPi = Integer.MAX_VALUE;
-			
 			for (VertexInterface vertex : vertexList) {
 				if (!A.isInA(vertex)) {
 					if (Pi.getValue(vertex) < minPi) {
@@ -42,7 +41,6 @@ public class Dijkstra {
 					}
 				}
 			}
-			
 			pivot = nextPivot;
 			A.addVertex(pivot);
 		}

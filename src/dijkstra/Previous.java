@@ -8,7 +8,7 @@ public class Previous implements PreviousInterface {
 	private Hashtable<VertexInterface, VertexInterface> previousTable = new Hashtable<VertexInterface, VertexInterface>();
 	
 	public void updatePrevious(VertexInterface y, VertexInterface pivot) {
-		previousTable.put(y,pivot);
+		previousTable.put(y, pivot);
 	}
 
 	public VertexInterface getPrevious(VertexInterface vertex) {

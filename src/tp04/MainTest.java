@@ -6,7 +6,7 @@ public class MainTest {
 	public static void main(String[] args) {
 		
 		/* Initialisation du labyrinthe de dimensions connues à l'avance */
-		Maze maze = new Maze(11,9);
+		Maze maze = new Maze(11, 9);
 		try {maze.initFromTextFile("labyrinthe");}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -16,7 +16,7 @@ public class MainTest {
 		Maze solvedMaze = maze.solvedMaze();
 		
 		/* Affichage de la solution dans la console, 
-		   avec des "*" pour indiquer le plus court chemin */
+		 * avec des "*" pour indiquer le plus court chemin */
 		String solvedMazeString = solvedMaze.solvedMazeToString();
 		System.out.print(solvedMazeString);
 
