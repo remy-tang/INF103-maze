@@ -148,7 +148,7 @@ public class Maze implements GraphInterface {
     }
 
     /* Création du string du labyrinthe résolu */
-    public String solvedMazeString() {
+    public String solvedMazeToString() {
 		
 		String solvedMazeString = "";
 		

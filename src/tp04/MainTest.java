@@ -17,7 +17,7 @@ public class MainTest {
 		
 		/* Affichage de la solution dans la console, 
 		   avec des "*" pour indiquer le plus court chemin */
-		String solvedMazeString = solvedMaze.solvedMazeString();
+		String solvedMazeString = solvedMaze.solvedMazeToString();
 		System.out.print(solvedMazeString);
 
 		/* Sauvegarde du labyrinthe résolu dans data/solvedLabyrinthe.txt */
