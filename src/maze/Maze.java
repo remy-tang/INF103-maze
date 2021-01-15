@@ -139,29 +139,33 @@ public class Maze implements GraphInterface {
     }
     
     /* Permet d'indiquer que la box fait partie du plus court chemin */
-    private static void updateBox(Maze maze, int i, int j) {
-    	maze.boxes[i][j].updateStatus();
+    private void updateBox(int i, int j) {
+    	boxes[i][j].updateStatus();
     }
     
-    public static String solvedMazeString(Maze maze) {
+    public Maze solvedMaze(Maze maze) {
     	
     	Maze solvedMaze = maze;
-    	PreviousInterface solution;
-    	solution = Dijkstra.dijkstra(maze,maze.DBox);
+    	PreviousInterface solution = Dijkstra.dijkstra(maze,maze.DBox);
 		ArrayList<VertexInterface> shortestPath = solution.getShortestPathTo(maze.ABox);
-		String solvedMazeString = "";
 		
 		for (VertexInterface vertex : shortestPath) {
-			if (((MBox)vertex).getLabel().equals("EBox")) {
-				int i=((MBox)vertex).getNPos();
-				int j=((MBox)vertex).getPPos();
-				Maze.updateBox(solvedMaze,i,j);
-			}
+			int i=((MBox)vertex).getNPos();
+			int j=((MBox)vertex).getPPos();
+			solvedMaze.updateBox(i,j);
 		}
 		
-		for (int i=0; i<=maze.nMax; i++) {
+		return solvedMaze;
+    }
+
+    /* Création du string du labyrinthe résolu */
+    public static String solvedMazeString(Maze solvedMaze) {
+		
+		String solvedMazeString = "";
+		
+		for (int i=0; i<=solvedMaze.nMax; i++) {
 			String newline = "";
-			for (int j=0; j<=maze.pMax; j++) {
+			for (int j=0; j<=solvedMaze.pMax; j++) {
 				if (solvedMaze.boxes[i][j].getLabel().equals("EBox")) {
 					if (solvedMaze.boxes[i][j].getStatus() == 1)
 						newline += "*";

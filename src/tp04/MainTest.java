@@ -12,16 +12,19 @@ public class MainTest {
 			e.printStackTrace();
 		}
 		
+		/* Création du labyrinthe résolu */
+		Maze solvedMaze = Maze.solvedMaze(maze);
+		
 		/* Affichage de la solution dans la console, 
 		   avec des "*" pour indiquer le plus court chemin */
-		System.out.print(Maze.solvedMazeString(maze));
+		System.out.print(Maze.solvedMazeString(solvedMaze));
 
+		/* Sauvegarde labyrinthe (non utilisé) */
+
+		try {solvedMaze.saveToTextFile("solvedLabyrinthe");}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
 
-/* Sauvegarde labyrinthe (non utilisé) */
-
-//Maze SolvedMaze = new Maze(9,9);
-//try {maze.saveToTextFile("solvedLabyrinthe");}
-//catch (Exception e) {
-//	e.printStackTrace();
