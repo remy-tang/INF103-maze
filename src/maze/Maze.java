@@ -105,31 +105,20 @@ public class Maze implements GraphInterface {
     	}
     }
     
-    public final void saveToTextFile(String fileName) {
+    public final void saveToTextFile(String fileName, String solvedMazeString) {
     	
-    	FileReader fr = null;
-    	BufferedReader br = null;
     	FileOutputStream fos = null;
     	PrintWriter pw = null;
     	
     	try {
-    		fr = new FileReader("data/" + fileName + ".txt");
-    		br = new BufferedReader(fr);
-    		fos = new FileOutputStream("data/labyrinthe2.txt");
+    		String filePath = "data/" + fileName + ".txt";
+    		fos = new FileOutputStream(filePath);
     		pw = new PrintWriter(fos);
-    		
-    		String currentLine = br.readLine();
-    		while (currentLine != null) {
-    			pw.println(currentLine);
-    			currentLine = br.readLine();
-    		}
-    			
+    		pw.print(solvedMazeString);
     	} catch (Exception e) {
     		e.printStackTrace();
     	} finally {
     		try {
-    			br.close();
-    			fr.close();
     			pw.close();
     			fos.close();
     		} catch (Exception e) {
