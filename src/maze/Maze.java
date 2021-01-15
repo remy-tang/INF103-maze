@@ -53,23 +53,56 @@ public class Maze implements GraphInterface {
     	return 1;
     }
     
+    public final int countLines(String fileName) {
+    	FileReader fr = null;
+    	BufferedReader br = null;
+        int lineCount = 0;
+        try {
+        	fr = new FileReader("data/" + fileName + ".txt");
+    		br = new BufferedReader(fr);
+    		
+    		while (br.readLine() != null) 
+    			lineCount++;
+    	} 
+        catch (Exception e) {
+            e.printStackTrace();
+        } 
+        finally {
+        	try {
+        	br.close();
+        	fr.close();
+        	} catch (Exception e) {
+        		e.printStackTrace();
+        	}
+        }
+        return lineCount;
+
+    }
+    
     public final void initFromTextFile(String fileName) 
     		throws MazeReadingException {
     	
     	FileReader fr = null;
     	BufferedReader br = null;
+    	
     	try {
     		fr = new FileReader("data/" + fileName + ".txt");
     		br = new BufferedReader(fr);
     		
-    		int n = 0; // n parcourt les lignes
-    		String currentLine = br.readLine();
+    		int lineCount = countLines(fileName);
+    		
+    		if (lineCount != nMax) 
+				throw new MazeReadingException(fileName, 73, "Wrong size along vertical axis: " + lineCount + ". Expected: " + nMax);
     				
-    		while (currentLine != null && n<=nMax) {
-    			int lineLen = currentLine.length() - 1; // Vérification du format des lignes
+    		String currentLine = br.readLine();
+    		
+    		int n = 0; // n parcourt les lignes
+    		while (n<=nMax) {
     			
+    			/* Vérification du format des lignes */
+    			int lineLen = currentLine.length() - 1; // 
     			if (lineLen != pMax) 
-    				throw new MazeReadingException(fileName, 91, "Wrong size along horizontal axis: " + lineLen + ". Expected: " + nMax);
+    				throw new MazeReadingException(fileName, 79, "Wrong size along horizontal axis: " + lineLen + ". Expected: " + pMax);
     			
     			for (int p=0; p<=pMax; p++) { // p parcourt les colonnes
     				String currentLetter = Character.toString(currentLine.charAt(p)).toUpperCase();
@@ -92,7 +125,8 @@ public class Maze implements GraphInterface {
     			currentLine = br.readLine();
     			n++;
     		}
-    	} catch (Exception e) {
+    	} 
+    	catch (Exception e) {
     		e.printStackTrace();
     	}
     	finally {
@@ -147,7 +181,7 @@ public class Maze implements GraphInterface {
 		return solvedMaze;
     }
 
-    /* Création du string du labyrinthe rï¿½solu */
+    /* Création du string du labyrinthe résolu */
     public String solvedMazeToString() {
 		
 		String solvedMazeString = "";

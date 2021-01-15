@@ -6,7 +6,8 @@ public class MazeReadingException extends Exception {
 	private final int exceptionAtLine;
 	private final String exceptionMessage;
 	
-	public MazeReadingException(String fileName, int exceptionAtLine, String exceptionMessage) { // do smth with fileName and exceptionAtLine
+	public MazeReadingException(String fileName, int exceptionAtLine, String exceptionMessage) { 
+		// do smth with fileName and exceptionAtLine
 		super("Exception thrown: " + exceptionMessage);
 		this.fileName = fileName;
 		this.exceptionAtLine = exceptionAtLine;
