@@ -37,13 +37,13 @@ public class Maze implements GraphInterface {
 		int p = box.getPPos();
 		ArrayList<VertexInterface> neighbourList = new ArrayList<VertexInterface>() ; 
 		
-		if (n != 0)
+		if (n != 0 && boxes[n-1][p].getLabel() != "WBox")
 			neighbourList.add(boxes[n-1][p]);
-		if (n != nMax)
+		if (n != nMax && boxes[n+1][p].getLabel() != "WBox")
 			neighbourList.add(boxes[n+1][p]);
-		if (p != 0)
+		if (p != 0 && boxes[n][p-1].getLabel() != "WBox")
 			neighbourList.add(boxes[n][p-1]);
-		if (p != pMax)
+		if (p != pMax && boxes[n][p+1].getLabel() != "WBox")
 			neighbourList.add(boxes[n][p+1]);
 			
 		return neighbourList;	}

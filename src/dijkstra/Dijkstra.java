@@ -35,7 +35,7 @@ public class Dijkstra {
 			int minPi = Integer.MAX_VALUE;
 			
 			for (VertexInterface vertex : vertexList) {
-				if (!A.isInA(vertex) && ((MBox)vertex).getLabel() == "EBox") {
+				if (!A.isInA(vertex)) {
 					if (Pi.getValue(vertex) < minPi) {
 						minPi = Pi.getValue(vertex);
 						nextPivot = vertex;
