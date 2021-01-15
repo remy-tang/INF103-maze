@@ -27,7 +27,7 @@ public class Previous implements PreviousInterface {
 		if (currentVertex != null) {
 			vertexList.add(currentVertex);
 		} else {
-			System.out.println("No solution found :(");
+			System.out.println("No solution found :(\nPlease check the maze :");
 			//throw an Exception ?
 		}
 		

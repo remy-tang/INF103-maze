@@ -147,17 +147,22 @@ public class Maze implements GraphInterface {
 		return solvedMaze;
     }
 
-    /* Création du string du labyrinthe résolu */
+    /* Création du string du labyrinthe rï¿½solu */
     public String solvedMazeToString() {
 		
 		String solvedMazeString = "";
+		int pathLen = 0;
+		int solved = 0;
 		
 		for (int i=0; i<=nMax; i++) {
 			String newline = "";
 			for (int j=0; j<=pMax; j++) {
 				if (boxes[i][j].getLabel().equals("EBox")) {
-					if (boxes[i][j].getStatus() == 1)
-						newline += "*";
+					if (boxes[i][j].getStatus() == 1) {
+						newline += "."; 
+						pathLen++;
+						solved = 1;
+					}
 					else
 						newline += "E";
 				}
@@ -165,12 +170,18 @@ public class Maze implements GraphInterface {
 					newline += "W";
 				else if (boxes[i][j].getLabel().equals("DBox"))
 					newline += "D";
-				else if (boxes[i][j].getLabel().equals("ABox"))
+				else if (boxes[i][j].getLabel().equals("ABox")) {
 					newline += "A";
+					pathLen++;
+				}
 			}
 			solvedMazeString += newline + "\n";
 		}
 		
+		if (solved==1) {
+			solvedMazeString += "A solution was found!\n";
+			solvedMazeString += "Path length : " + pathLen;
+		}
     	return solvedMazeString;
     }
 }

@@ -10,7 +10,7 @@ public class Dijkstra {
 		PiInterface Pi = new Pi();
 		PreviousInterface previous = new Previous();
 		ArrayList<VertexInterface> vertexList = g.getAllVertices();
-		int n = vertexList.size();
+		int verticesCount = vertexList.size();
 		VertexInterface pivot = r;
 		VertexInterface nextPivot = r;
 		Pi.setValue(r, 0);
@@ -20,7 +20,7 @@ public class Dijkstra {
 				Pi.setValue(vertex, Integer.MAX_VALUE);
 		}
 		
-		for (int j=1; j<n; j++) {
+		for (int j=1; j<verticesCount; j++) {
 			ArrayList<VertexInterface> pivotSuccessors = g.getSuccessors(pivot);
 			
 			for (VertexInterface y : pivotSuccessors) {
