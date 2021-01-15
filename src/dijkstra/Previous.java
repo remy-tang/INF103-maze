@@ -28,9 +28,8 @@ public class Previous implements PreviousInterface {
 			vertexList.add(currentVertex);
 		} else {
 			System.out.println("No solution found :(");
-			//throw an Exception
+			//throw an Exception ?
 		}
-		
 		
 		return vertexList;
 	}
