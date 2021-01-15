@@ -54,18 +54,22 @@ public class Maze implements GraphInterface {
     }
     
     public final int countLines(String fileName) {
+    	
     	FileReader fr = null;
     	BufferedReader br = null;
         int lineCount = 0;
+        
         try {
         	fr = new FileReader("data/" + fileName + ".txt");
     		br = new BufferedReader(fr);
     		
     		while (br.readLine() != null) 
     			lineCount++;
+    		return lineCount;
     	} 
         catch (Exception e) {
             e.printStackTrace();
+            return 0;
         } 
         finally {
         	try {
@@ -75,12 +79,43 @@ public class Maze implements GraphInterface {
         		e.printStackTrace();
         	}
         }
-        return lineCount;
-
     }
     
-    public final void initFromTextFile(String fileName) 
-    		throws MazeReadingException {
+    public final int checkLinesLen(String fileName, int pMax) {
+    	
+    	FileReader fr = null;
+    	BufferedReader br = null;
+        
+        try {
+        	fr = new FileReader("data/" + fileName + ".txt");
+    		br = new BufferedReader(fr);
+    		int lineLen;
+    		String currentLine = br.readLine();
+    		
+    		while (currentLine != null) {
+    			lineLen = currentLine.length() - 1;
+    			if (lineLen != pMax)
+    				return 0;
+    			currentLine = br.readLine();
+    		}
+    		return 1;
+    	} 
+        catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        } 
+        finally {
+        	try {
+        	br.close();
+        	fr.close();
+        	} catch (Exception e) {
+        		e.printStackTrace();
+        	}
+        }
+    }
+    
+
+    public final void initFromTextFile(String fileName) throws MazeReadingException {
     	
     	FileReader fr = null;
     	BufferedReader br = null;
@@ -88,21 +123,21 @@ public class Maze implements GraphInterface {
     	try {
     		fr = new FileReader("data/" + fileName + ".txt");
     		br = new BufferedReader(fr);
-    		
-    		int lineCount = countLines(fileName);
-    		
-    		if (lineCount != nMax) 
-				throw new MazeReadingException(fileName, 73, "Wrong size along vertical axis: " + lineCount + ". Expected: " + nMax);
-    				
     		String currentLine = br.readLine();
     		
+    		/* Vérification du nombre de lignes */
+    		int lineCount = countLines(fileName);
+    		if (lineCount != nMax+1) 
+				throw new MazeReadingException(fileName, 000, "Wrong size along vertical axis: " + lineCount + ". Expected: " + nMax);
+    		
+			/* Vérification du format des lignes */
+			int lineLen = currentLine.length() - 1;
+			if (lineLen != pMax) 
+				throw new MazeReadingException(fileName, 000, "Wrong size along horizontal axis: " + lineLen + ". Expected: " + pMax);
+    		
+			/* Initialisation */
     		int n = 0; // n parcourt les lignes
     		while (n<=nMax) {
-    			
-    			/* Vérification du format des lignes */
-    			int lineLen = currentLine.length() - 1; // 
-    			if (lineLen != pMax) 
-    				throw new MazeReadingException(fileName, 79, "Wrong size along horizontal axis: " + lineLen + ". Expected: " + pMax);
     			
     			for (int p=0; p<=pMax; p++) { // p parcourt les colonnes
     				String currentLetter = Character.toString(currentLine.charAt(p)).toUpperCase();
