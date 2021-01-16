@@ -21,8 +21,8 @@ public abstract class MBox implements VertexInterface{
 	private int status = 0;
 	
 	/**
-	 * Constructeur de classe qui crée une box de coordonnées (nPos, pPos),
-	 * et de nom label.
+	 * Constructeur de classe qui crée une box.
+	 * La box a pour coordonnées (nPos, pPos), et pour nom label.
 	 * Les indices commencent à 0. Le nom de la box label indique si la box est 
 	 * le départ (DBox), l'arrivée (ABox), un mur (WBox), ou une case vide (EBox).
 	 * 
@@ -64,8 +64,9 @@ public abstract class MBox implements VertexInterface{
 	}
 	
 	/**
-	 * Renvoie le status de la box : 0 par défaut, ou 1 si elle fait partie 
-	 * du plus court chemin calculé par l'algorithme de Dijkstra.
+	 * Renvoie le status de la box.
+	 * 0 par défaut, ou 1 si elle fait partie du plus court chemin 
+	 * calculé par l'algorithme de Dijkstra.
 	 * 
 	 * @return le status de la box
 	 */
@@ -74,7 +75,8 @@ public abstract class MBox implements VertexInterface{
 	}
 	
 	/**
-	 * Met à jour la box pour indiquer que la box fait partie 
+	 * Met à jour le status de la box. 
+	 * Cela permet d'indiquer que la box fait partie 
 	 * du plus court chemin calculé par l'algorithme de Dijkstra.
 	 */
 	public void updateStatus() {

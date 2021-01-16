@@ -8,7 +8,7 @@ package dijkstra;
 public interface PiInterface {
 	
 	/**
-	 * Assigne une valeur au sommet.
+	 * Assigne une valeur à un sommet.
 	 * 
 	 * @param vertex  le sommet considéré
 	 * @param value   la valeur assignée

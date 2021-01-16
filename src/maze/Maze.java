@@ -11,14 +11,15 @@ import dijkstra.*;
  */
 public class Maze implements GraphInterface {
 	private MBox[][] boxes;
-	private final int nMax;				/* Indice maximum selon les lignes */
-	private final int pMax;				/* Indice maximum selon les colonnes */
+	private final int nMax;			
+	private final int pMax;				
 	private MBox DBox;
 	private MBox ABox;
 	
 	/**
-	 * Constructeur de classe qui crée un labyrinthe vide 
-	 * de dimensions (nMax + 1, pMax +1). Les indices commencent à 0.
+	 * Constructeur de classe qui crée un labyrinthe vide.
+	 * Le labyrinthe est de dimension (nMax + 1, pMax +1).
+	 * Les indices commencent à 0.
 	 * 
 	 * @param nMax  l'indice maximal selon les lignes
 	 * @param pMax  l'indice maximal selon les colonnes
