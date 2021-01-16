@@ -1,8 +1,21 @@
 package tp04;
 import maze.*;
 
+/**
+ * Classe Main.
+ * 
+ * @author Remy
+ */
 public class Main {
 
+	/**
+	 * Résout un labyrinthe et sauvegarde la solution dans un fichier texte.
+	 * Tous les fichiers sont dans le dossier data.
+	 * Le labyrinthe intial doit être nommé labyrinthe.txt.
+	 * Le labyrinthe résolu est sauvegardé dans labyrintheResolu.txt
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		
 		/* Initialisation du labyrinthe */
@@ -23,7 +36,7 @@ public class Main {
 		System.out.print(solvedMazeString);
 
 		/* Sauvegarde du labyrinthe résolu dans data/solvedLabyrinthe.txt */
-		try {Maze.saveToTextFile("solvedLabyrinthe", solvedMazeString);}
+		try {Maze.saveToTextFile("labyrintheResolu", solvedMazeString);}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
