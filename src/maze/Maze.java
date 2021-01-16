@@ -4,6 +4,11 @@ import java.io.*;
 import java.util.ArrayList;
 import dijkstra.*;
 
+/**
+ * 
+ * 
+ * @author Remy
+ */
 public class Maze implements GraphInterface {
 	private MBox[][] boxes;
 	private final int nMax;				/* Indice maximum selon les lignes */
@@ -154,10 +159,12 @@ public class Maze implements GraphInterface {
 											   + lineLen + ". Expected: " + pMax);
     		
 			/* Initialisation */
-    		int n = 0; // n parcourt les lignes
+    		int n = 0;
+    		int dBoxFlag = 0;
+    		int aBoxFlag = 0;
     		while (n<=nMax) {
     			
-    			for (int p=0; p<=pMax; p++) { // p parcourt les colonnes
+    			for (int p=0; p<=pMax; p++) {
     				String currentLetter = Character.toString(currentLine.charAt(p));
     				currentLetter = currentLetter.toUpperCase();
     				
@@ -167,11 +174,28 @@ public class Maze implements GraphInterface {
     				} else if (currentLetter.equals("W")) {
     					boxes[n][p] = new WBox(n,p);
     				} else if (currentLetter.equals("D")) {
-    					boxes[n][p] = new DBox(n,p);
-    					DBox = boxes[n][p];
+    					if (dBoxFlag == 0) {
+    						boxes[n][p] = new DBox(n,p);
+    						DBox = boxes[n][p];
+    						dBoxFlag = 1;
+    					} else {
+    						throw new MazeReadingException(fileName, 0, 
+									   "Multiple characters 'D' detected. "
+									   + "Only one authorized. "
+									   + "Please check the maze at "
+									   + "data/" + fileName + ".txt");
+    					}
     				} else if (currentLetter.equals("A")) {
-    					boxes[n][p] = new ABox(n,p);
-    					ABox = boxes[n][p];
+    					if (aBoxFlag == 0) {
+    						boxes[n][p] = new ABox(n,p);
+    						ABox = boxes[n][p];
+    					} else {
+    						throw new MazeReadingException(fileName, 0, 
+									   "Multiple characters 'A' detected. "
+									   + "Only one authorized. "
+									   + "Please check the maze at "
+									   + "data/" + fileName + ".txt");
+    					}
     				} else {
     					throw new MazeReadingException(fileName, 91, 
     												   "Wrong character: " + currentLetter 

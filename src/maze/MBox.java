@@ -3,10 +3,10 @@ package maze;
 import dijkstra.VertexInterface;
 
 /**
- * MBox est la classe abstraite à partir de laquelle héritent les classes DBox,
+ * La classe abstraite à partir de laquelle héritent les classes DBox,
  * ABox, WBox, et EBox, qui sont les cases qui composent un labyrinthe.
  * <p>
- * On utilisera le terme box pour désigner une case d'un labyrinthe.
+ * On utilise le terme box pour désigner une case d'un labyrinthe.
  * MBox contient la position (nPos, pPos) de la box, son nom label, 
  * ainsi que son status (0 ou 1), qui indique si elle fait partie du plus court chemin 
  * calculé par l'algorithme de Dijkstra ou non. Par défaut, status vaut 0.
@@ -73,7 +73,8 @@ public abstract class MBox implements VertexInterface{
 	}
 	
 	/**
-	 * Indique que la box fait partie du plus court chemin calculé par l'algorithme de Dijkstra.
+	 * Indique que la box fait partie du plus court chemin
+	 * calculé par l'algorithme de Dijkstra.
 	 */
 	public void updateStatus() {
 		this.status = 1;
