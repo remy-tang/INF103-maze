@@ -117,10 +117,10 @@ public class Maze implements GraphInterface {
     		while (currentLine != null) {
     			lineLen = currentLine.length() - 1;
     			if (lineLen != pMax)
-    				return 0;
+    				return lineLen;
     			currentLine = br.readLine();
     		}
-    		return 1;
+    		return pMax;
     	} catch (Exception e) {
             e.printStackTrace();
             return 0;
@@ -144,35 +144,38 @@ public class Maze implements GraphInterface {
     		br = new BufferedReader(fr);
     		String currentLine = br.readLine();
     		
-    		/* Vérification du nombre de lignes */
-    		int lineCount = countLines(fileName);
-    		if (lineCount != nMax+1) 
-				throw new MazeReadingException(fileName, 000, "Wrong size along vertical axis: " + lineCount + ". Expected: " + nMax);
-    		
 			/* Vérification du format des lignes */
-			int lineLen = currentLine.length() - 1;
+    		int lineLen = checkLinesLen(fileName, pMax);
 			if (lineLen != pMax) 
-				throw new MazeReadingException(fileName, 000, "Wrong size along horizontal axis: " + lineLen + ". Expected: " + pMax);
+				throw new MazeReadingException(fileName, 0, 
+											   "Wrong size along horizontal axis "
+											   + "while reading data/" 
+										       + fileName + ".txt : " 
+											   + lineLen + ". Expected: " + pMax);
     		
 			/* Initialisation */
     		int n = 0; // n parcourt les lignes
     		while (n<=nMax) {
     			
     			for (int p=0; p<=pMax; p++) { // p parcourt les colonnes
-    				String currentLetter = Character.toString(currentLine.charAt(p)).toUpperCase();
+    				String currentLetter = Character.toString(currentLine.charAt(p));
+    				currentLetter = currentLetter.toUpperCase();
     				
+    				/* On suppose qu'il n'y a qu'un D et qu'un A dans fileName */
     				if (currentLetter.equals("E")) {
     					boxes[n][p] = new EBox(n,p);
     				} else if (currentLetter.equals("W")) {
     					boxes[n][p] = new WBox(n,p);
-    				} else if (currentLetter.equals("D")) { // On suppose qu'il n'y a qu'un D et qu'un A dans fileName
+    				} else if (currentLetter.equals("D")) {
     					boxes[n][p] = new DBox(n,p);
     					DBox = boxes[n][p];
     				} else if (currentLetter.equals("A")) {
     					boxes[n][p] = new ABox(n,p);
     					ABox = boxes[n][p];
     				} else {
-    					throw new MazeReadingException(fileName, 91, "Wrong character: " + currentLetter + ", expected 'E','W','D','A'.");
+    					throw new MazeReadingException(fileName, 91, 
+    												   "Wrong character: " + currentLetter 
+    												   + ", expected 'E','W','D', or 'A'.");
     				}
     			}
     			currentLine = br.readLine();
