@@ -1,10 +1,21 @@
 package dijkstra;
 
 import java.util.ArrayList;
-import maze.*;
 
+/**
+ * Classe qui implémente l'algorithme de Dijkstra.
+ * 
+ * @author Remy
+ */
 public class Dijkstra {
 	
+	/**
+	 * Renvoie la fonction père obtenue après application de l'algorithme de Dijkstra.
+	 * 
+	 * @param  g  le graphe
+	 * @param  r  la racine du graphe
+	 * @return 	  la fonction père obtenue après application de Dijkstra
+	 */
 	public static PreviousInterface dijkstra(GraphInterface g, VertexInterface r) {
 		ASetInterface A = new ASet();
 		PiInterface Pi = new Pi();

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import dijkstra.*;
 
 /**
- * Représente un labyrinthe de dimensions (nMax + 1, pMax + 1).
+ * Représente un labyrinthe.
  * 
  * @author Remy
  */
@@ -20,8 +20,8 @@ public class Maze implements GraphInterface {
 	 * Constructeur de classe qui crée un labyrinthe vide 
 	 * de dimensions (nMax + 1, pMax +1). Les indices commencent à 0.
 	 * 
-	 * @param nMax l'indice maximal selon les lignes
-	 * @param pMax l'indice maximal selon les colonnes
+	 * @param nMax  l'indice maximal selon les lignes
+	 * @param pMax  l'indice maximal selon les colonnes
 	 */
 	public Maze(int nMax, int pMax) {
 		boxes = new MBox[nMax+1][pMax+1];
@@ -29,13 +29,7 @@ public class Maze implements GraphInterface {
 		this.pMax = pMax;
 	}
 	
-	/**
-	 * Renvoie une ArrayList qui contient toutes les box du labyrinthe.
-	 * La lecture du labyrinthe s'effectue de gauche à droite, et de haut en bas.
-	 * 
-	 * @return un ArrayList de toutes les box du labyrinthe
-	 */
-    public ArrayList<VertexInterface> getAllVertices() {
+    public final ArrayList<VertexInterface> getAllVertices() {
     	ArrayList<VertexInterface> boxesList = new ArrayList<VertexInterface>() ;
     	
     	for (int i = 0; i < nMax+1; i++) {
@@ -46,6 +40,13 @@ public class Maze implements GraphInterface {
     	return boxesList;
     }
 	
+    /**
+     * Renvoie une ArrayList qui contient tous les voisins d'une box, 
+     * dont le label n'est pas "WBox".
+     * 
+     * @param  vertex  la box considérée
+     * @return		   l'ArrayList des voisins de vertex qui ne sont pas des murs
+     */
 	public ArrayList<VertexInterface> getSuccessors(VertexInterface vertex) {
 		MBox box = (MBox) vertex ;
 		int n = box.getNPos();
@@ -64,11 +65,27 @@ public class Maze implements GraphInterface {
 		return neighbourList;	
 	}
 
-	
+	/**
+	 * Renvoie 1.
+	 * <p>
+	 * Dans le cadre du projet du labyrinthe, les poids de tous les arcs valent 1.
+	 * 
+	 * @param  src 	la box au départ de l'arc
+	 * @param  dst  la box à l'arrivée de l'arc
+	 * @return      l'entier 1
+	 */
     public int getWeight(VertexInterface src,VertexInterface dst) {
     	return 1;
     }
     
+    /**
+     * Renvoie le nombre de lignes consécutives non nulles 
+     * du fichier texte, en comptant à partir du début du fichier.
+     * Ce fichier doit être placé dans le dossier data.
+     * 
+     * @param  fileName  le nom du fichier texte
+     * @return			 le nombre de lignes consécutives non nulles du fichier
+     */
     public static final int countLines(String fileName) {
     	FileReader fr = null;
     	BufferedReader br = null;
@@ -95,6 +112,14 @@ public class Maze implements GraphInterface {
         }
     }
     
+    /**
+     * Renvoie le nombre de caractères de la première ligne du fichier. 
+     * Le caractère '\n' n'est pas pris en compte. 
+     * Ce fichier doit être placé dans le dossier data.
+     * 
+     * @param  fileName    le nom du fichier
+     * @return			   le nombre de caractères de la première ligne du fichier
+     */
     public static final int firstLineLen(String fileName) {
     	FileReader fr = null;
     	BufferedReader br = null;
@@ -106,20 +131,33 @@ public class Maze implements GraphInterface {
     		String firstLine = br.readLine();
     		
     		return firstLine.length();
-    	} catch (Exception e) {
+    	} catch (IOException e) {
             e.printStackTrace();
             return 0;
         } finally {
         	try {
         	br.close();
         	fr.close();
-        	} catch (Exception e) {
+        	} catch (IOException e) {
         		e.printStackTrace();
         	}
         }
     }
     
-    public final int checkLinesLen(String fileName, int pMax) {
+    /**
+     * Renvoie le nombre de caractères dans une ligne du fichier
+     * si toutes les lignes ont la même longueur.
+     * Le caractère '\n' n'est pas pris en compte. 
+     * Si une ligne a une longueur différente de la première ligne, 
+     * la fonction renvoie la première longueur qui diffère.
+     * En cas d'erreur, la fonction renvoie 0.
+     * 
+     * @param  fileName  le nom du fichier texte
+     * @return			 la longueur des lignes du fichier, 
+     * 					 ou la première longueur qui diffère de la première ligne,
+     * 					 ou 0 en cas d'erreur
+     */
+    public final int checkLinesLen(String fileName) {
     	FileReader fr = null;
     	BufferedReader br = null;
         
@@ -139,20 +177,31 @@ public class Maze implements GraphInterface {
     			currentLine = br.readLine();
     		}
     		return pMax;
-    	} catch (Exception e) {
+    	} catch (IOException e) {
             e.printStackTrace();
             return 0;
         } finally {
         	try {
         	br.close();
         	fr.close();
-        	} catch (Exception e) {
+        	} catch (IOException e) {
         		e.printStackTrace();
         	}
         }
     }
     
-
+    /**
+     * Initialise le labyrinthe à partir du fichier texte.
+     * Ce fichier doit être placé dans le dossier data.
+     * <p>
+     * Un fichier constitue un labyrinthe valide s'il comporte :
+     * le même nombre de caractères sur chacune des lignes,
+     * une unique entrée 'D', et une unique sortie 'A'.
+     * De plus, les seuls caractères acceptés sont : 'D', 'A', 'E', ou 'W'.
+     * 
+     * @param  fileName				 le nom du fichier texte
+     * @throws MazeReadingException  si le fichier ne constitue pas un labyrinthe valide
+     */
     public final void initFromTextFile(String fileName) throws MazeReadingException {
     	FileReader fr = null;
     	BufferedReader br = null;
@@ -163,7 +212,7 @@ public class Maze implements GraphInterface {
     		String currentLine = br.readLine();
     		
 			/* Vérification du format des lignes */
-    		int lineLen = checkLinesLen(fileName, pMax);
+    		int lineLen = checkLinesLen(fileName);
 			if (lineLen != pMax) 
 				throw new MazeReadingException(fileName, 0, 
 											   "Wrong size along horizontal axis "
@@ -181,7 +230,6 @@ public class Maze implements GraphInterface {
     				String currentLetter = Character.toString(currentLine.charAt(p));
     				currentLetter = currentLetter.toUpperCase();
     				
-    				/* On suppose qu'il n'y a qu'un D et qu'un A dans fileName */
     				if (currentLetter.equals("E")) {
     					boxes[n][p] = new EBox(n,p);
     				} else if (currentLetter.equals("W")) {
@@ -212,7 +260,7 @@ public class Maze implements GraphInterface {
     				} else {
     					throw new MazeReadingException(fileName, 91, 
     												   "Wrong character: " + currentLetter 
-    												   + ", expected 'E','W','D', or 'A'.");
+    												   + ", expected 'D','A','E', or 'W'.");
     				}
     			}
     			currentLine = br.readLine();
@@ -230,7 +278,14 @@ public class Maze implements GraphInterface {
     	}
     }
     
-    public final void saveToTextFile(String fileName, String solvedMazeString) {
+    /**
+     * Sauvegarde un String sous la forme d'un fichier texte.
+     * Le fichier ainsi créé se situe dans le dossier data.
+     * 
+     * @param fileName			le nom du fichier de sauvegarde
+     * @param solvedMazeString  le String du labyrinthe résolu
+     */
+    public final static void saveToTextFile(String fileName, String solvedMazeString) {
     	FileOutputStream fos = null;
     	PrintWriter pw = null;
     	
@@ -251,11 +306,25 @@ public class Maze implements GraphInterface {
     	}
     }
     
-    /* Permet d'indiquer que la box fait partie du plus court chemin */
+    /**
+     *  Permet d'indiquer que la box fait partie du plus court chemin.
+     *  
+     *  @param i  l'indice de la ligne de la box
+     *  @param j  l'indice de la colonne de la box
+     *  */
     private final void updateBox(int i, int j) {
     	boxes[i][j].updateStatus();
     }
     
+    /**
+     * Renvoie une copie résolue du labyrinthe actuel, c'est-à-dire avec des 
+     * box dont le status a été mis à jour
+     * pour indiquer qu'elles appartiennent au plus court chemin.
+     * Le plus court chemin entre DBox et Abox est celui qui a été trouvé 
+     * par l'algorithme de Dijkstra.
+     * 
+     * @return une copie résolue du labyrinthe
+     */
     public final Maze solvedMaze() {
     	Maze solvedMaze = this;
     	PreviousInterface solution = Dijkstra.dijkstra(this, this.DBox);
@@ -269,8 +338,15 @@ public class Maze implements GraphInterface {
 		return solvedMaze;
     }
 
-    /* Création du string du labyrinthe résolu */
-    public String solvedMazeToString() {
+    /**
+     * Renvoie le String correspondant à un labyrinthe résolu.
+     * Le String contient des '.' pour indiquer le chemin à suivre, 
+     * et la longueur du chemin trouvé.
+     * Si le labyrinthe n'est pas résolu, renvoie le labyrinthe sous forme de String.
+     * 
+     * @return le String correspondant à un labyrinthe, résolu ou non
+     */
+    public final String solvedMazeToString() {
 		String solvedMazeString = "";
 		int pathLen = 0;
 		int solved = 0;

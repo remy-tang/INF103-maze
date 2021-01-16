@@ -23,7 +23,7 @@ public class MainTest {
 		System.out.print(solvedMazeString);
 
 		/* Sauvegarde du labyrinthe résolu dans data/solvedLabyrinthe.txt */
-		try {solvedMaze.saveToTextFile("solvedLabyrinthe", solvedMazeString);}
+		try {Maze.saveToTextFile("solvedLabyrinthe", solvedMazeString);}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
