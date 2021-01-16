@@ -3,7 +3,7 @@ package maze;
 public class DBox extends MBox {
 	
 	/**
-	 * La classe héritée de MBox qui désigne la case de départ du labyrinthe.
+	 * Classe héritée de MBox qui désigne la case de départ du labyrinthe.
 	 * 
 	 * @param nPos l'indice de la ligne
 	 * @param pPos l'indice de la colonne

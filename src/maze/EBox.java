@@ -3,7 +3,7 @@ package maze;
 public class EBox extends MBox {
 	
 	/**
-	 * La classe héritée de MBox qui désigne une case vide dans un labyrinthe.
+	 * Classe héritée de MBox qui désigne une case vide dans un labyrinthe.
 	 * 
 	 * @param nPos l'indice de la ligne
 	 * @param pPos l'indice de la colonne

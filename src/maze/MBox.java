@@ -3,7 +3,7 @@ package maze;
 import dijkstra.VertexInterface;
 
 /**
- * La classe abstraite à partir de laquelle héritent les classes DBox,
+ * Classe abstraite à partir de laquelle héritent les classes DBox,
  * ABox, WBox, et EBox, qui sont les cases qui composent un labyrinthe.
  * <p>
  * On utilise le terme box pour désigner une case d'un labyrinthe.
@@ -73,8 +73,8 @@ public abstract class MBox implements VertexInterface{
 	}
 	
 	/**
-	 * Indique que la box fait partie du plus court chemin
-	 * calculé par l'algorithme de Dijkstra.
+	 * Met à jour la box pour indiquer que la box fait partie 
+	 * du plus court chemin calculé par l'algorithme de Dijkstra.
 	 */
 	public void updateStatus() {
 		this.status = 1;

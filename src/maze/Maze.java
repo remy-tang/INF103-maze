@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import dijkstra.*;
 
 /**
- * 
+ * Représente un labyrinthe de dimensions (nMax + 1, pMax + 1).
  * 
  * @author Remy
  */
@@ -16,12 +16,25 @@ public class Maze implements GraphInterface {
 	private MBox DBox;
 	private MBox ABox;
 	
+	/**
+	 * Constructeur de classe qui crée un labyrinthe vide 
+	 * de dimensions (nMax + 1, pMax +1). Les indices commencent à 0.
+	 * 
+	 * @param nMax l'indice maximal selon les lignes
+	 * @param pMax l'indice maximal selon les colonnes
+	 */
 	public Maze(int nMax, int pMax) {
 		boxes = new MBox[nMax+1][pMax+1];
 		this.nMax = nMax;
 		this.pMax = pMax;
 	}
 	
+	/**
+	 * Renvoie une ArrayList qui contient toutes les box du labyrinthe.
+	 * La lecture du labyrinthe s'effectue de gauche à droite, et de haut en bas.
+	 * 
+	 * @return un ArrayList de toutes les box du labyrinthe
+	 */
     public ArrayList<VertexInterface> getAllVertices() {
     	ArrayList<VertexInterface> boxesList = new ArrayList<VertexInterface>() ;
     	

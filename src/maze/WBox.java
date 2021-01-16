@@ -3,7 +3,7 @@ package maze;
 public class WBox extends MBox {
 	
 	/**
-	 * La classe héritée de MBox qui désigne un mur dans un labyrinthe.
+	 * Classe héritée de MBox qui désigne un mur dans un labyrinthe.
 	 * 
 	 * @param nPos l'indice de la ligne
 	 * @param pPos l'indice de la colonne
