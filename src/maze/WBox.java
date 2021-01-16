@@ -2,8 +2,15 @@ package maze;
 
 public class WBox extends MBox {
 	
-	public WBox(int xPos, int yPos) {
-		super(xPos, yPos, "WBox");
+	/**
+	 * La classe héritée de MBox qui désigne un mur dans un labyrinthe.
+	 * 
+	 * @param nPos l'indice de la ligne
+	 * @param pPos l'indice de la colonne
+	 * @see   MBox
+	 */
+	public WBox(int nPos, int pPos) {
+		super(nPos, pPos, "WBox");
 	}
 
 }

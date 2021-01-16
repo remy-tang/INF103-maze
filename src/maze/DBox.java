@@ -2,7 +2,14 @@ package maze;
 
 public class DBox extends MBox {
 	
-	public DBox(int xPos, int yPos) {
-		super(xPos, yPos, "DBox");
+	/**
+	 * La classe héritée de MBox qui désigne la case de départ du labyrinthe.
+	 * 
+	 * @param nPos l'indice de la ligne
+	 * @param pPos l'indice de la colonne
+	 * @see   MBox
+	 */
+	public DBox(int nPos, int pPos) {
+		super(nPos, pPos, "DBox");
 	}
 }
