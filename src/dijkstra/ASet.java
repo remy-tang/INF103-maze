@@ -2,6 +2,11 @@ package dijkstra;
 
 import java.util.HashSet;
 
+/**
+ * Classe qui représente un ensemble.
+ * 
+ * @author Remy
+ */
 public class ASet implements ASetInterface {
 	
 	private HashSet<VertexInterface> A = new HashSet<VertexInterface>();

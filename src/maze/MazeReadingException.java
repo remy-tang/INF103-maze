@@ -1,5 +1,11 @@
 package maze;
 
+/**
+* Est levée si le programme rencontre une erreur lors de la lecture du fichier texte
+* sensé représenter un labyrinthe.
+*
+* @author Remy
+*/
 public class MazeReadingException extends Exception {
 	private final String fileName;
 	private final int exceptionAtLine;

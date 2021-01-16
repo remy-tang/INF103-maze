@@ -3,6 +3,11 @@ package dijkstra;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
+/**
+ * Classe qui représente la fonction père utilisée dans l'algorithme de Dijkstra.
+ * 
+ * @author Remy
+ */
 public class Previous implements PreviousInterface {
 
 	private Hashtable<VertexInterface, VertexInterface> previousTable = new Hashtable<VertexInterface, VertexInterface>();
