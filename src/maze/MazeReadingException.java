@@ -1,7 +1,6 @@
 package maze;
 
 public class MazeReadingException extends Exception {
-	
 	private final String fileName;
 	private final int exceptionAtLine;
 	private final String exceptionMessage;

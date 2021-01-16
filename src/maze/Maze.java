@@ -1,7 +1,7 @@
 package maze;
+
 import java.io.*;
 import java.util.ArrayList;
-
 import dijkstra.*;
 
 public class Maze implements GraphInterface {
@@ -51,7 +51,7 @@ public class Maze implements GraphInterface {
     	return 1;
     }
     
-    public final int countLines(String fileName) {
+    public static final int countLines(String fileName) {
     	FileReader fr = null;
     	BufferedReader br = null;
         int lineCount = 0;
@@ -64,6 +64,30 @@ public class Maze implements GraphInterface {
     			lineCount++;
     		
     		return lineCount;
+    	} catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        } finally {
+        	try {
+        	br.close();
+        	fr.close();
+        	} catch (Exception e) {
+        		e.printStackTrace();
+        	}
+        }
+    }
+    
+    public static final int firstLineLen(String fileName) {
+    	FileReader fr = null;
+    	BufferedReader br = null;
+    	
+        try {
+        	fr = new FileReader("data/" + fileName + ".txt");
+    		br = new BufferedReader(fr);
+    		
+    		String firstLine = br.readLine();
+    		
+    		return firstLine.length();
     	} catch (Exception e) {
             e.printStackTrace();
             return 0;

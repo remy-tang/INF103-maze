@@ -1,4 +1,5 @@
 package dijkstra;
+
 import java.util.ArrayList;
 import maze.*;
 
