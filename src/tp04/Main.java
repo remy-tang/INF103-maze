@@ -14,7 +14,7 @@ public class Main {
 	 * Le labyrinthe intial doit être nommé labyrinthe.txt.
 	 * Le labyrinthe résolu est sauvegardé dans labyrintheResolu.txt
 	 * 
-	 * @param args
+	 * @param args arguments de main
 	 */
 	public static void main(String[] args) {
 		

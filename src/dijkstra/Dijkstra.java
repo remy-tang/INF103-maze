@@ -17,6 +17,7 @@ public class Dijkstra {
 	 * @return 	  la fonction père obtenue après application de Dijkstra
 	 */
 	public static PreviousInterface dijkstra(GraphInterface g, VertexInterface r) {
+		/* Initialisation des paramètres */
 		ASetInterface A = new ASet();
 		PiInterface Pi = new Pi();
 		PreviousInterface previous = new Previous();
@@ -27,11 +28,14 @@ public class Dijkstra {
 		VertexInterface nextPivot = r;
 		Pi.setValue(r, 0);
 		
+		/* Initialisation de la fonction Pi pour tous les sommets autres que la racine */
 		for (VertexInterface vertex : vertexList) {
 			if (vertex != r)
 				Pi.setValue(vertex, Integer.MAX_VALUE);
 		}
 		
+		/* Mise à jour des valeurs de Pi et de la fonction père 
+		 * pour tous les successeurs du pivot */
 		for (int j = 1; j < verticesCount; j++) {
 			ArrayList<VertexInterface> pivotSuccessors = g.getSuccessors(pivot);
 			
@@ -43,7 +47,8 @@ public class Dijkstra {
 					}
 				}
 			}
-			
+			/* Recherche du prochain pivot par le minmum de Pi pour les sommets 
+			 * qui ne sont pas encore dans A. */
 			int minPi = Integer.MAX_VALUE;
 			for (VertexInterface vertex : vertexList) {
 				if (!A.isInA(vertex)) {

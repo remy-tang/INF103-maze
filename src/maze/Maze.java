@@ -42,7 +42,7 @@ public class Maze implements GraphInterface {
     }
 	
     /**
-     * Renvoie une ArrayList qui contient tous les voisins d'une box, 
+     * Renvoie une ArrayList qui contient tous les voisins d'une box
      * dont le label n'est pas "WBox".
      * 
      * @param  vertex  la box considérée
@@ -54,6 +54,7 @@ public class Maze implements GraphInterface {
 		int p = box.getPPos();
 		ArrayList<VertexInterface> neighbourList = new ArrayList<VertexInterface>() ; 
 		
+		/* On teste les cas limites avec les if */
 		if ((n != 0) && (boxes[n-1][p].getLabel() != "WBox"))
 			neighbourList.add(boxes[n-1][p]);
 		if ((n != nMax) && (boxes[n+1][p].getLabel() != "WBox"))
@@ -81,7 +82,7 @@ public class Maze implements GraphInterface {
     
     /**
      * Renvoie le nombre de lignes consécutives non nulles 
-     * du fichier texte, en comptant à partir du début du fichier.
+     * d'un fichier texte, en comptant à partir du début du fichier.
      * Ce fichier doit être placé dans le dossier data.
      * 
      * @param  fileName  le nom du fichier texte
@@ -114,7 +115,7 @@ public class Maze implements GraphInterface {
     }
     
     /**
-     * Renvoie le nombre de caractères de la première ligne du fichier. 
+     * Renvoie le nombre de caractères de la première ligne d'un fichier texte. 
      * Le caractère '\n' n'est pas pris en compte. 
      * Ce fichier doit être placé dans le dossier data.
      * 
@@ -168,6 +169,7 @@ public class Maze implements GraphInterface {
     		int lineLen;
     		String currentLine = br.readLine();
     		
+    		/* Si le fichier est nul */
     		if (currentLine == null)
     			return 0;
     		
@@ -192,7 +194,7 @@ public class Maze implements GraphInterface {
     }
     
     /**
-     * Initialise le labyrinthe à partir du fichier texte.
+     * Initialise le labyrinthe à partir d'un fichier texte.
      * Ce fichier doit être placé dans le dossier data.
      * <p>
      * Un fichier constitue un labyrinthe valide s'il comporte :
@@ -230,7 +232,8 @@ public class Maze implements GraphInterface {
     			for (int p=0; p<=pMax; p++) {
     				String currentLetter = Character.toString(currentLine.charAt(p));
     				currentLetter = currentLetter.toUpperCase();
-    				
+    				/* On compare à chaque lettre acceptée */
+    				/* On vérifie qu'il n'y a qu'un 'D' et qu'un 'A' */
     				if (currentLetter.equals("E")) {
     					boxes[n][p] = new EBox(n,p);
     				} else if (currentLetter.equals("W")) {
@@ -258,7 +261,7 @@ public class Maze implements GraphInterface {
 									   + "Please check the maze at "
 									   + "data/" + fileName + ".txt");
     					}
-    				} else {
+    				} else { /* S'il y a un autre caractère */
     					throw new MazeReadingException(fileName, 91, 
     												   "Wrong character: " + currentLetter 
     												   + ", expected 'D','A','E', or 'W'.");
