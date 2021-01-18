@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import dijkstra.*;
 
 /**
- * Représente un labyrinthe.
+ * Représente un labyrinthe rectangulaire.
  * 
  * @author Remy
  */
