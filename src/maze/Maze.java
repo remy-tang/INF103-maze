@@ -298,6 +298,7 @@ public class Maze implements GraphInterface {
     		fos = new FileOutputStream(filePath);
     		pw = new PrintWriter(fos);
     		pw.print(solvedMazeString);
+    		System.out.println("Maze saved in data/" + fileName + ".txt");
     	} catch (Exception e) {
     		e.printStackTrace();
     	} finally {
@@ -380,8 +381,8 @@ public class Maze implements GraphInterface {
 		}
 		
 		if (solved == 1) {
-			solvedMazeString += "A solution was found!\n";
-			solvedMazeString += "Path length : " + pathLen;
+			solvedMazeString += "A solution was found!\n"
+							  + "Path length : " + pathLen + "\n";
 		}
 		
     	return solvedMazeString;
