@@ -155,9 +155,9 @@ public class Maze implements GraphInterface {
      * En cas d'erreur, la fonction renvoie 0.
      * 
      * @param  fileName  le nom du fichier texte
-     * @return			 la longueur des lignes du fichier, 
-     * 					 ou la première longueur qui diffère de la première ligne,
-     * 					 ou 0 en cas d'erreur
+     * @return           la longueur des lignes du fichier, 
+     *                   ou la première longueur qui diffère de la première ligne,
+     *                   ou 0 en cas d'erreur
      */
     public final int checkLinesLen(String fileName) {
     	FileReader fr = null;
@@ -202,7 +202,7 @@ public class Maze implements GraphInterface {
      * une unique entrée 'D', et une unique sortie 'A'.
      * De plus, les seuls caractères acceptés sont : 'D', 'A', 'E', ou 'W'.
      * 
-     * @param  fileName				 le nom du fichier texte
+     * @param  fileName              le nom du fichier texte
      * @throws MazeReadingException  si le fichier ne constitue pas un labyrinthe valide
      */
     public final void initFromTextFile(String fileName) throws MazeReadingException {
@@ -286,7 +286,7 @@ public class Maze implements GraphInterface {
      * Sauvegarde un String sous la forme d'un fichier texte.
      * Le fichier ainsi créé se situe dans le dossier data.
      * 
-     * @param fileName			le nom du fichier de sauvegarde
+     * @param fileName          le nom du fichier de sauvegarde
      * @param solvedMazeString  le String du labyrinthe résolu
      */
     public final static void saveToTextFile(String fileName, String solvedMazeString) {
