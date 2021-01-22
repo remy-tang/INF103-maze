@@ -46,7 +46,7 @@ public class Maze implements GraphInterface {
      * dont le label n'est pas "WBox".
      * 
      * @param  vertex  la box considérée
-     * @return		   l'ArrayList des voisins de vertex qui ne sont pas des murs
+     * @return         l'ArrayList des voisins de vertex qui ne sont pas des murs
      */
 	public ArrayList<VertexInterface> getSuccessors(VertexInterface vertex) {
 		MBox box = (MBox) vertex ;
@@ -86,7 +86,7 @@ public class Maze implements GraphInterface {
      * Ce fichier doit être placé dans le dossier data.
      * 
      * @param  fileName  le nom du fichier texte
-     * @return			 le nombre de lignes consécutives non nulles du fichier
+     * @return           le nombre de lignes consécutives non nulles du fichier
      */
     public static final int countLines(String fileName) {
     	FileReader fr = null;
@@ -119,8 +119,8 @@ public class Maze implements GraphInterface {
      * Le caractère '\n' n'est pas pris en compte. 
      * Ce fichier doit être placé dans le dossier data.
      * 
-     * @param  fileName    le nom du fichier
-     * @return			   le nombre de caractères de la première ligne du fichier
+     * @param  fileName  le nom du fichier
+     * @return           le nombre de caractères de la première ligne du fichier
      */
     public static final int firstLineLen(String fileName) {
     	FileReader fr = null;
@@ -214,7 +214,7 @@ public class Maze implements GraphInterface {
     		br = new BufferedReader(fr);
     		String currentLine = br.readLine();
     		
-			/* Vérification du format des lignes */
+            /* Vérification du format des lignes */
     		int lineLen = checkLinesLen(fileName);
 			if (lineLen != pMax) 
 				throw new MazeReadingException(fileName, 0, 
@@ -223,7 +223,7 @@ public class Maze implements GraphInterface {
 										       + fileName + ".txt : " 
 											   + lineLen + ". Expected: " + pMax);
     		
-			/* Initialisation */
+            /* Initialisation */
     		int n = 0;
     		int dBoxFlag = 0;
     		int aBoxFlag = 0;
